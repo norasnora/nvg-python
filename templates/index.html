@@ -192,7 +192,7 @@
                 		<a href="#" onclick="openArt()"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
                 		<div class="card-body">
                   			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
-                                <small style="font-style:italic;">By <a href="/artist?uname="+{{artWork['UserName']}}>{{artWork["FirstName"]}}</a></small>
+                                <small style="font-style:italic;">By <a href="/artist?uname={{artWork['FirstName']}}">{{artWork["FirstName"]}}</a></small>
                            
                   			<p class="card-text">{{artWork["Description"]}}</p>
                 		</div>

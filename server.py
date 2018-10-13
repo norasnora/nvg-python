@@ -102,8 +102,9 @@ def getArtist():
 	con = lite.connect('db/nVanGogh.db')
 	con.row_factory = lite.Row
 	cur = con.cursor()
-	cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name])
+	cur.execute("SELECT * FROM Artists Where Artists.FirstName == ?", [name])
 	a = cur.fetchall()
+	print(a)
 	artWorks = []
 	return render_template('artist.html', artist = a, artWorks = artWorks)
 
@@ -117,6 +118,7 @@ def getAllArtists():
 	return render_template('allArtists.html',allArtists=artists)
 
 @app.route('/')
+@app.route('/<typ>')
 def index(typ=None):
 
 	

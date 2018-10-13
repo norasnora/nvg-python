@@ -133,18 +133,18 @@
 
         <div class="col-lg-3">
           <br>
-          <img src="{{artist['Photo']}}" width=240 height=300>
-          <h1 class="my-4">{{ artist["FirstName"] }}</h1>
+          <img src="{{ artist[0]['Photo'] }}" width=240 height=300>
+          <h1 class="my-4">{{ artist[0]["FirstName"] }}</h1>
           <div class="list-group">
-            <p>{{ artist["Description"] }}</p>
+            <p>{{ artist[0]["Description"] }}</p>
           </div>
           <button class="btn btn-warning" style="margin-bottom:10%;">Sponsor this artist!</button>
           <br>
         </div>
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-9">
-          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+        <div class="col-lg-9" style="margin-top:3%;">
+<!--           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -169,7 +169,7 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+          </div> -->
 
           <div>
               <iframe width="560" height="315" src="https://www.youtube.com/embed/CDIJg3IZShI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
