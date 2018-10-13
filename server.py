@@ -4,6 +4,7 @@ import sqlite3 as lite
 
 con = None
 
+
 try:
     con = lite.connect('db/nVanGogh.db')
     
@@ -33,11 +34,6 @@ def redirect_url(default='index'):
            url_for(default)
 
 
-@app.route("/")
-def index():
-    page_name = "index"
-    return render_template('%s.html' % page_name)
-
 @app.route("/login", methods=['POST'])
 def login():
     uname = request.form['user']
@@ -57,6 +53,16 @@ def signup():
     ### DO INSERT STATEMENT INTO RTIST TABLE
     return redirect(redirect_url())
 
+@app.route('/')
+def index():
+	con = lite.connect('db/nVanGogh.db')
+   	con.row_factory = lite.Row
+      	cur = con.cursor()
+   	cur.execute("SELECT ArtTypes.Name FROM ArtTypes") 
+   	types = cur.fetchall(); 
+	cur.execute("Select ArtWorks.Id, Artists.UserName from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
+	artWorks = cur.fetchall(); 
+	return render_template('index.html', types = types, artWorks = artWorks)
 
 if __name__ == "__main__":
     app.run()
