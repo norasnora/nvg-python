@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import json, sys
 import sqlite3 as lite
 
@@ -41,12 +41,15 @@ def loginDemo():
     con = lite.connect('db/nVanGogh.db')
     con.row_factory = lite.Row
     cur = con.cursor()
-    cur.execute("SELECT Customer.Password FROM Customer Where Customer.UserName == ?", [uname]) 
+    cur.execute("SELECT * FROM Customer Where Customer.UserName == ?", [uname]) 
     user = cur.fetchall()
+    print(user)
     if len(user) and user[0]['Password'] == pwd:
-	    return redirect(url_for('index',loggedIn=True, user=user))
+    	session['loggedIn'] = True
+    	session['level'] = user[0]['Level']
+    	return redirect(url_for('index', user=user))
     else:
-	    return redirect("/")   
+    	return redirect("/")   
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -55,13 +58,16 @@ def login():
     con = lite.connect('db/nVanGogh.db')
     con.row_factory = lite.Row
     cur = con.cursor()
-    cur.execute("SELECT Artists.Password FROM Artists Where Artists.UserName == ?", [uname]) 
+    cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [uname]) 
     user = cur.fetchall()
     if len(user) and user[0]['Password'] == pwd:
 	    return redirect(url_for("getProfile", name = uname))
     else:
 	    return redirect("/")    
-
+@app.route("/logout")
+def logout():
+	session.clear()
+	
 @app.route("/profile/<name>")
 def getProfile(name):
        
@@ -142,4 +148,5 @@ def index(typ=None):
 	return render_template('index.html', types = types, artWorks = artWorks)
 
 if __name__ == "__main__":
-    app.run()
+	app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+	app.run()

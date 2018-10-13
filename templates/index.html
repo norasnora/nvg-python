@@ -41,12 +41,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
             </li>
-            <li class="nav-item">
-              {% if loggedIn %}
-              <a class="nav-link" onclick="logout()">Logout</a>
-              {% else %}
-              <a class="nav-link" onclick="login()">Login</a>
-              {% endif %}
+            <li id="log" class="nav-item">
             </li>
 <!--             <li class="nav-item">
               <a  class="nav-link" onclick="signup()">Sign up</a>
@@ -85,7 +80,7 @@
                 </button>
               </div>
                 <p style="margin-left:4%"><a href="#" onclick="signup()">Don't have an account? Sign up!</a></p>
-              <form action="{{url_for('login')}}" method="POST">
+              <form action="{{url_for('loginDemo')}}" method="POST">
                   <div class="modal-body">
                         <input type="text" class="form-control" name="user" placeholder="Username">
                         <input type="password" class="form-control" name="pass" placeholder="Password">
@@ -231,6 +226,16 @@
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>
     <script>
+        window.onload = function(){
+          el = document.getElementById('log')
+          if("{{session['loggedIn']}}"){
+            el.innerHTML = '<a class="nav-link" onclick="logout()">Logout</a>'
+          }
+          else{
+            el.innerHTML = '<a class="nav-link" onclick="login()">Login</a>'
+          }
+                                
+        }
         function login(){
             $('#login-modal').modal('show');
         }

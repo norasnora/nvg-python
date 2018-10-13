@@ -42,12 +42,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
             </li>
-            <li class="nav-item">
-              {% if loggedIn %}
-              <a class="nav-link" onclick="logout()">Logout</a>
-              {% else %}
-              <a class="nav-link" onclick="login()">Login</a>
-              {% endif %}
+            <li id="log" class="nav-item">
             </li>
 <!--             <li class="nav-item">
               <a  class="nav-link" onclick="signup()">Sign up</a>
@@ -175,7 +170,8 @@
             </a>
           </div> -->
 
-          <div>
+          <div class="level3">
+            <h4>Watch this artists live stream!</h4>
               <iframe width="560" height="315" src="https://www.youtube.com/embed/CDIJg3IZShI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
           <div class="row">
@@ -244,6 +240,22 @@
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>
     <script>
+        window.onload = function(){
+          el = document.getElementById('log')
+          if("{{session['loggedIn']}}"){
+            el.innerHTML = '<a class="nav-link" onclick="logout()">Logout</a>'
+          }
+          else{
+            el.innerHTML = '<a class="nav-link" onclick="login()">Login</a>'
+          }
+          if("{{session['level']==3}}"){
+            $('.level3').css('display','block');
+          }
+          else{
+            $('.level3').css('display','none');
+          }
+                                
+        }
         function login(){
             $('#login-modal').modal('show');
         }
