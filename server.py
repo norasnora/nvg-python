@@ -115,7 +115,7 @@ def index():
       	cur = con.cursor()
    	cur.execute("SELECT ArtTypes.Type FROM ArtTypes") 
    	types = cur.fetchall(); 
-	cur.execute("Select ArtWorks.Id, Artists.UserName from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
+	cur.execute("Select ArtWorks.Id, Artworks.Name, ArtWorks.Item, ArtWorks.Description, Artists.FirstName, Artists.LastName from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
 	artWorks = cur.fetchall(); 
 	print(types)
 	return render_template('index.html', types = types, artWorks = artWorks)
