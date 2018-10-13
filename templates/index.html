@@ -156,7 +156,7 @@
         </div>
 
 
-          <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+<!--           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -181,15 +181,15 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+          </div> -->
 
-          <div class="row">
+          <div class="row" style="margin-top:3%;">
 
             	{% for artWork in artWorks %}
 
  		     <div class="col-lg-4 col-md-6 mb-4">
               		<div class="card h-100">
-                		<a href="#" onclick="openArt()"><img class="card-img-top" src="{{artWork['Item']}}" alt="" data-id =""+{{artWork['Description']}}></a>
+                		<a href="#" onclick="openArt()"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
                 		<div class="card-body">
                   			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
                                 <small style="font-style:italic;">By <a href="/artist?uname="+{{artWork['UserName']}}>{{artWork["FirstName"]}}</a></small>
@@ -249,7 +249,7 @@
         }
         function openArt(element){
             document.getElementById('artWorkId').src = "http://placehold.it/700x400";
-            document.getElementById('artWorkDesc').innerHTML=this.getAttribute('data-id');
+            document.getElementById('artWorkDesc').innerHTML= "testing";
             $('#art-modal').modal('show');
         }
         function signup(){
