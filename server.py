@@ -112,7 +112,7 @@ def getAllArtists():
 	con = lite.connect('db/nVanGogh.db')
 	con.row_factory = lite.Row
 	cur = con.cursor()
-	cur.execute("SELECT * FROM Artists", [name])
+	cur.execute("SELECT * FROM Artists")
 	a = cur.fetchall()
 	return render_template('allArtists.html',allArtists=artists)
 
