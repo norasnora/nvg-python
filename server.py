@@ -34,6 +34,20 @@ def redirect_url(default='index'):
            url_for(default)
 
 
+@app.route("/loginDemo", methods=['POST'])
+def loginDemo():
+    uname = request.form['user']
+    pwd = request.form['pass']
+    con = lite.connect('db/nVanGogh.db')
+    con.row_factory = lite.Row
+    cur = con.cursor()
+    cur.execute("SELECT Customer.Password FROM Customer Where Customer.UserName == ?", [uname]) 
+    user = cur.fetchall()
+    if len(user) and user[0]['Password'] == pwd:
+	    return redirect(url_for('index',loggedIn=True, user=user))
+    else:
+	    return redirect("/")   
+
 @app.route("/login", methods=['POST'])
 def login():
     uname = request.form['user']
@@ -96,6 +110,7 @@ def index():
    	types = cur.fetchall(); 
 	cur.execute("Select ArtWorks.Id, Artists.UserName from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
 	artWorks = cur.fetchall(); 
+	print(types)
 	return render_template('index.html', types = types, artWorks = artWorks)
 
 if __name__ == "__main__":

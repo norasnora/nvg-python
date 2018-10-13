@@ -62,7 +62,7 @@
  		
 		<div class="list-group">
             		{% for type in types %}
-            		<a href="#" class="list-group-item">{{type["name"]}}</a>
+            		<a href="#" class="list-group-item">{{type[0]}}</a>
 	         	{% endfor %}
 	        </div>
 
@@ -113,6 +113,12 @@
                         <input type="text" class="form-control" name="address" placeholder="Address">
                         <input type="text" class="form-control" name="city" placeholder="City">
                         <input type="text" class="form-control" name="country" placeholder="Country">
+                          <div class="form-check">
+                            <input type="radio" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1" style="padding-right:5%;">Artist</label>
+                            <input type="radio" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Sponsor</label>
+                          </div>
                   </div>
                   <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" name="login" value="Sign up">
@@ -227,7 +233,7 @@
         function login2(){
             $.ajax({
                 type:"GET",
-                url:'http://localhost:3000/login',
+                url:'http://localhost:3000/loginDemo',
                 dataType:'json',
                 success:function(data){
 
