@@ -104,9 +104,17 @@ def getArtist():
 	cur = con.cursor()
 	cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name])
 	a = cur.fetchall()
-	print(a)
 	artWorks = []
 	return render_template('artist.html', artist = a, artWorks = artWorks)
+
+@app.route("/allArtists")
+def getAllArtists():
+	con = lite.connect('db/nVanGogh.db')
+	con.row_factory = lite.Row
+	cur = con.cursor()
+	cur.execute("SELECT * FROM Artists", [name])
+	a = cur.fetchall()
+	return render_template('allArtists.html',allArtists=artists)
 
 @app.route('/')
 def index():
