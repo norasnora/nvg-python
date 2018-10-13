@@ -37,13 +37,17 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Artists</a>
+              <a class="nav-link" href="/allArtists">Artists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
+              {% if loggedIn %}
+              <a class="nav-link" onclick="logout()">Logout</a>
+              {% else %}
               <a class="nav-link" onclick="login()">Login</a>
+              {% endif %}
             </li>
 <!--             <li class="nav-item">
               <a  class="nav-link" onclick="signup()">Sign up</a>
@@ -176,23 +180,25 @@
           </div>
           <div class="row">
 
-              {% for artWork in artWorks %}
+		{% for artWork in artWorks %}
 
-              <div class="col-lg-4 col-md-6 mb-4">
-                  <div class="card h-100">
-                    <a href="#" onclick="openArt()"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title"><a href="#">{{artWork[""]}}</a> 
-                                <small style="font-style:italic;">By <a href="/artist?name=mg">Marvin Gaye</a></small>
-                            </h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                  </div>
-              </div>
-           {% endfor %}
+ 		     <div class="col-lg-4 col-md-6 mb-4">
+              		<div class="card h-100">
+                		<a href="#" onclick="openArt('{{artWork["Item"]+ "," + artWork["Name"]+ "," + artWork["Description"]}}')"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
+                		<div class="card-body">
+                  			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
+                                <small style="font-style:italic;">By <a href="/artist/{{artWork['UserName']}}">{{artWork["FirstName"]}}</a></small>
+                           
+                  			<p class="card-text">{{artWork["Description"]}}</p>
+                		</div>
+                		<div class="card-footer">
+                            <button class="btn btn-primary" style="float:right;"><small>Buy now</small></button>
+                            <!-- <button class="btn btn-warning pull-right"><small>Add to cart</small></button> -->
+                  			<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                		</div>
+              		</div>
+            	</div>
+	         {% endfor %}
 
 
 
@@ -204,6 +210,27 @@
 
     </div>
     <!-- /.container -->
+<div class="modal" id="art-modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="artWorkName"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                    <img id="artWorkId" width=400 height=300 />
+                    <p id="artWorkDesc"></p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Buy</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+        </div>
 
     <!-- Footer -->
     <footer class="py-5 bg-dark" style="background-color:#000!important;">
@@ -213,9 +240,53 @@
       <!-- /.container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
+   <!-- Bootstrap core JavaScript -->
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>
+    <script>
+        function login(){
+            $('#login-modal').modal('show');
+        }
+        function login2(){
+            $.ajax({
+                type:"GET",
+                url:'http://localhost:3000/loginDemo',
+                dataType:'json',
+                success:function(data){
+
+                },
+                error:function(jqXHR, textStatus, errorThrown) {
+                        //alert(jqXHR.status);
+                    }
+            });
+        }
+        function openArt(elem){
+            allElems = elem.split(",")
+            document.getElementById('artWorkId').src = allElems[0];
+            document.getElementById('artWorkDesc').innerHTML= allElems[2];
+            document.getElementById('artWorkName').innerHTML = allElems[1]
+            $('#art-modal').modal('show');
+        }
+        function signup(){
+            $('#login-modal').modal('hide');
+            $('#signup-modal').modal('show');
+        }
+        function signup2(){
+            $.ajax({
+                type:"GET",
+                url:'http://localhost:3000/signup',
+                dataType:'json',
+                success:function(data){
+
+                },
+                error:function(jqXHR, textStatus, errorThrown) {
+                        //alert(jqXHR.status);
+                    }
+            });
+        }
+
+
+    </script>
 
   </body>
 

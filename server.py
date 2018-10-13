@@ -108,13 +108,14 @@ def getArtist(name):
 	return render_template('artist.html', artist = a, artWorks = artWorks)
 
 @app.route("/allArtists")
-def getAllArtists():
+@app.route('/allArtists/<uname>')
+def getAllArtists(uname=None):
 	con = lite.connect('db/nVanGogh.db')
 	con.row_factory = lite.Row
 	cur = con.cursor()
 	cur.execute("SELECT * FROM Artists")
-	a = cur.fetchall()
-	return render_template('allArtists.html',allArtists=artists)
+	artists = cur.fetchall()
+	return render_template('allArtists.html', allArtists=artists, uname = uname)
 
 @app.route("/about")
 def about():
