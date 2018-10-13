@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json, sys
 import sqlite3 as lite
 
@@ -44,10 +44,27 @@ def login():
     cur.execute("SELECT Artists.Password FROM Artists Where Artists.UserName == ?", [uname]) 
     user = cur.fetchall()
     if len(user) and user[0]['Password'] == pwd:
-	    return redirect("/artist")
+	    return redirect(url_for("getProfile", name = uname))
     else:
 	    return redirect("/")    
 
+@app.route("/profile", methods=['GET','POST'])
+def getProfile():
+
+    con = lite.connect('db/nVanGogh.db')
+    con.row_factory = lite.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name]) 
+    a = cur.fetchall()
+
+    if len(a): 
+	    cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name]) 
+	    artWorks = cur.fetchall()
+	    render_template('profile.html', artist = a, artWorks = artWorks)
+    else:
+    	return redirect("/")  
+
+    
 @app.route("/signup", methods=['POST'])
 def signup():
     fname = request.form['fname']
@@ -57,15 +74,17 @@ def signup():
     address = request.form['address']
     city = request.form['city']
     country = request.form['country']
-    ### DO INSERT STATEMENT INTO RTIST TABLE
+
+    con = lite.connect('db/nVanGogh.db')
+    con.row_factory = lite.Row
+    cur = con.cursor()
+    cur.execute("INSERT Artists.Password FROM Artists Where Artists.UserName == ?", [uname]) 	
+
     return redirect(redirect_url())
 
 @app.route("/artist", methods=['GET','POST'])
 def getArtist():
-    ##TODO GET THE ARTIST FROM THE DB
-    name = request.args.get('name')
-    a = {'name':'Marvin Gaye','bio':'Aspiring artist living in Maskachka.','pic':'static/mg.jpeg'}
-    artWorks = [] ###todo get all atworks for that artist
+    
     return render_template('artist.html', artist = a, artWorks = artWorks)
 
 @app.route('/')
@@ -73,7 +92,7 @@ def index():
 	con = lite.connect('db/nVanGogh.db')
    	con.row_factory = lite.Row
       	cur = con.cursor()
-   	cur.execute("SELECT ArtTypes.Name FROM ArtTypes") 
+   	cur.execute("SELECT ArtTypes.Type FROM ArtTypes") 
    	types = cur.fetchall(); 
 	cur.execute("Select ArtWorks.Id, Artists.UserName from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
 	artWorks = cur.fetchall(); 
