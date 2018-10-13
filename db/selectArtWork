@@ -1,0 +1,4 @@
+Select ArtWorks.Id, 
+		Artists.UserName
+  from ArtWorks
+INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id;
