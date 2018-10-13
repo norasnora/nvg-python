@@ -108,18 +108,24 @@ def getArtist():
 	artWorks = []
 	return render_template('artist.html', artist = a, artWorks = artWorks)
 
+@app.route('/<typ>')
 @app.route('/')
-def index():
+def index(typ=None):
+
+	
 	con = lite.connect('db/nVanGogh.db')
    	con.row_factory = lite.Row
       	cur = con.cursor()
-   	cur.execute("SELECT ArtTypes.Type FROM ArtTypes") 
+	cur.execute("SELECT ArtTypes.Type FROM ArtTypes") 
    	types = cur.fetchall(); 
-	cur.execute("Select ArtWorks.Id, Artworks.Name, ArtWorks.Item, ArtWorks.Description, Artists.FirstName, Artists.LastName from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
+	if typ :
+		cur.execute("Select Artists.UserName, Artists.FirstName, Artists.LastName, ArtWorks.Description, ArtWorks.Item, ArtWorks.Name from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id where ArtWorks.ArtTypeId == ?", typ) 
+			
+	else:
+		cur.execute("Select Artists.UserName, Artists.FirstName, Artists.LastName, ArtWorks.Description, ArtWorks.Item, ArtWorks.Name from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
 	artWorks = cur.fetchall(); 
 	print(types)
 	return render_template('index.html', types = types, artWorks = artWorks)
-
 
 if __name__ == "__main__":
     app.run()
