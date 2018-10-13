@@ -141,7 +141,5 @@ def index(typ=None):
 	print(types)
 	return render_template('index.html', types = types, artWorks = artWorks)
 
-
-
 if __name__ == "__main__":
     app.run()
