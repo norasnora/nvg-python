@@ -53,6 +53,14 @@ def signup():
     ### DO INSERT STATEMENT INTO RTIST TABLE
     return redirect(redirect_url())
 
+@app.route("/artist", methods=['GET','POST'])
+def getArtist():
+    ##TODO GET THE ARTIST FROM THE DB
+    name = request.args.get('name')
+    a = {'name':'Marvin Gaye','bio':'Aspiring artist living in Maskachka.','pic':'static/mg.jpeg'}
+    artWorks = [] ###todo get all atworks for that artist
+    return render_template('artist.html', artist = a, artWorks = artWorks)
+
 @app.route('/')
 def index():
 	con = lite.connect('db/nVanGogh.db')

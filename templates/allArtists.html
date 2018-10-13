@@ -36,17 +36,14 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Artists</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Art Group</a>
+              <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" onclick="login()">Login</a>
             </li>
-<!--             <li class="nav-item">
+            <li class="nav-item">
               <a  class="nav-link" onclick="signup()">Sign up</a>
-            </li> -->
+            </li>
           </ul>
         </div>
       </div>
@@ -80,7 +77,6 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-                <p style="margin-left:4%"><a href="#" onclick="signup()">Don't have an account? Sign up!</a></p>
               <form action="{{url_for('login')}}" method="POST">
                   <div class="modal-body">
                         <input type="text" class="form-control" name="user" placeholder="Username">
@@ -187,9 +183,7 @@
                   			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                 		</div>
                 		<div class="card-footer">
-                            <button class="btn btn-primary pull-right"><small>Buy now</small></button>
-                            <button class="btn btn-warning pull-right"><small>Add to cart</small></button>
-                  			<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                  			<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                 		</div>
               		</div>
             	</div>
@@ -243,7 +237,6 @@
             $('#art-modal').modal('show');
         }
         function signup(){
-            $('#login-modal').modal('hide');
             $('#signup-modal').modal('show');
         }
         function signup2(){

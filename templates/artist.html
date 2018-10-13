@@ -22,6 +22,7 @@
   <body>
 
     <!-- Navigation -->
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-color:#000!important;">
       <div class="container">
         <a class="navbar-brand" href="/"><img src="../static/logo.png" width=200 height=40></a>
@@ -54,24 +55,7 @@
 
     <!-- Page Content -->
     <div class="container">
-
-      <div class="row">
-
-        <div class="col-lg-3">
-          <h1 class="my-4"></h1>
- 		
-		<div class="list-group">
-            		{% for type in types %}
-            		<a href="#" class="list-group-item">{{type["name"]}}</a>
-	         	{% endfor %}
-	        </div>
-
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
-
-        <div class="modal" id="login-modal" tabindex="-1" role="dialog">
+      <div class="modal" id="login-modal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -145,7 +129,19 @@
           </div>
         </div>
 
+      <div class="row">
 
+        <div class="col-lg-3">
+          <br>
+          <img src="{{artist['pic']}}" width=240 height=300>
+          <h1 class="my-4">{{ artist["name"] }}</h1>
+          <div class="list-group">
+            <p>{{ artist["bio"] }}</p>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -175,36 +171,31 @@
 
           <div class="row">
 
-            	{% for artWork in artWorks %}
+              {% for artWork in artWorks %}
 
- 		     <div class="col-lg-4 col-md-6 mb-4">
-              		<div class="card h-100">
-                		<a href="#" onclick="openArt()"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                		<div class="card-body">
-                  			<h4 class="card-title"><a href="#">{{artWork[""]}}</a> 
+              <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="card h-100">
+                    <a href="#" onclick="openArt()"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">{{artWork[""]}}</a> 
                                 <small style="font-style:italic;">By <a href="/artist?name=mg">Marvin Gaye</a></small>
                             </h4>
-                  			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                		</div>
-                		<div class="card-footer">
-                            <button class="btn btn-primary pull-right"><small>Buy now</small></button>
-                            <button class="btn btn-warning pull-right"><small>Add to cart</small></button>
-                  			<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
-                		</div>
-              		</div>
-            	</div>
-	         {% endfor %}
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
+                  </div>
+              </div>
+           {% endfor %}
 
 
 
-	       </div>
-          <!-- /.row -->
-
+         </div>
         </div>
         <!-- /.col-lg-9 -->
 
       </div>
-      <!-- /.row -->
 
     </div>
     <!-- /.container -->
@@ -220,48 +211,6 @@
     <!-- Bootstrap core JavaScript -->
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>
-    <script>
-        function login(){
-            $('#login-modal').modal('show');
-        }
-        function login2(){
-            $.ajax({
-                type:"GET",
-                url:'http://localhost:3000/login',
-                dataType:'json',
-                success:function(data){
-
-                },
-                error:function(jqXHR, textStatus, errorThrown) {
-                        //alert(jqXHR.status);
-                    }
-            });
-        }
-        function openArt(element){
-            document.getElementById('artWorkId').src = "http://placehold.it/700x400";
-            document.getElementById('artWorkDesc').innerHTML="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!";
-            $('#art-modal').modal('show');
-        }
-        function signup(){
-            $('#login-modal').modal('hide');
-            $('#signup-modal').modal('show');
-        }
-        function signup2(){
-            $.ajax({
-                type:"GET",
-                url:'http://localhost:3000/signup',
-                dataType:'json',
-                success:function(data){
-
-                },
-                error:function(jqXHR, textStatus, errorThrown) {
-                        //alert(jqXHR.status);
-                    }
-            });
-        }
-
-
-    </script>
 
   </body>
 
