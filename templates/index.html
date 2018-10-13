@@ -42,7 +42,11 @@
               <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
+              {% if loggedIn %}
+              <a class="nav-link" onclick="logout()">Logout</a>
+              {% else %}
               <a class="nav-link" onclick="login()">Login</a>
+              {% endif %}
             </li>
 <!--             <li class="nav-item">
               <a  class="nav-link" onclick="signup()">Sign up</a>
@@ -188,7 +192,7 @@
                 		<a href="#" onclick="openArt()"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                 		<div class="card-body">
                   			<h4 class="card-title"><a href="#">{{artWork[""]}}</a> 
-                                <small style="font-style:italic;">By <a href="/artist?name=mg">Marvin Gaye</a></small>
+                                <small style="font-style:italic;">By <a href="/artist?uname="+{{artWork['UserName']}}>{{artWork["UserName"]}}</a></small>
                             </h4>
                   			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                 		</div>

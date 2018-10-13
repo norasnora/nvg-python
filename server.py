@@ -96,10 +96,17 @@ def signup():
 
     return redirect(redirect_url())
 
-@app.route("/artist", methods=['GET','POST'])
+@app.route("/artist")
 def getArtist():
-    
-    return render_template('artist.html', artist = a, artWorks = artWorks)
+	name = request.args.get('uname')
+	con = lite.connect('db/nVanGogh.db')
+	con.row_factory = lite.Row
+	cur = con.cursor()
+	cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name])
+	a = cur.fetchall()
+	print(a)
+	artWorks = []
+	return render_template('artist.html', artist = a, artWorks = artWorks)
 
 @app.route('/')
 def index():
