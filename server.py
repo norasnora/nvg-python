@@ -96,16 +96,15 @@ def signup():
 
     return redirect(redirect_url())
 
-@app.route("/artist")
-def getArtist():
-	name = request.args.get('uname')
+@app.route("/artist/<name>")
+def getArtist(name):
 	con = lite.connect('db/nVanGogh.db')
 	con.row_factory = lite.Row
 	cur = con.cursor()
-	cur.execute("SELECT * FROM Artists Where Artists.FirstName == ?", [name])
+	cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name])
 	a = cur.fetchall()
-	print(a)
-	artWorks = []
+	cur.execute("Select ArtWorks.Id, ArtWorks.Description, ArtWorks.Item, ArtWorks.Name from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id where Artists.UserName == ?", [name]) 
+	artWorks = cur.fetchall()
 	return render_template('artist.html', artist = a, artWorks = artWorks)
 
 @app.route("/allArtists")
