@@ -8,22 +8,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>NextVAnGogh</title>
+    <title>NextVanGogh</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../static/style.css" rel="stylesheet">
+    <link href="../static/style.css" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-color:#000!important;">
       <div class="container">
-        <a class="navbar-brand" href="#">NextVanGogh</a>
+        <a class="navbar-brand" href="#"><img src="../static/logo.png" width=200 height=40></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,13 +36,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="#">Artists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" onclick="login()">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a  class="nav-link" onclick="signup()">Sign up</a>
             </li>
           </ul>
         </div>
@@ -55,7 +56,7 @@
 
         <div class="col-lg-3">
 
-          <h1 class="my-4">NextVanGogh</h1>
+          <h1 class="my-4"></h1>
           <div class="list-group">
             <a href="#" class="list-group-item">Acryl</a>
             <a href="#" class="list-group-item">Watercolour</a>
@@ -66,6 +67,58 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
+
+        <div class="modal" id="login-modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Log into your account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="{{url_for('login')}}" method="POST">
+                  <div class="modal-body">
+                        <input type="text" class="form-control" name="user" placeholder="Username">
+                        <input type="password" class="form-control" name="pass" placeholder="Password">
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" name="login" value="Login">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="signup-modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Sign up with NextVanGogh</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="{{url_for('signup')}}" method="POST">
+                  <div class="modal-body">
+                        <input type="text" class="form-control" name="fname" placeholder="First name">
+                        <input type="text" class="form-control" name="lname" placeholder="Last name">
+                        <input type="text" class="form-control" name="user2" placeholder="Username">
+                        <input type="password" class="form-control" name="pass2" placeholder="Password">
+                        <input type="text" class="form-control" name="address" placeholder="Address">
+                        <input type="text" class="form-control" name="city" placeholder="City">
+                        <input type="text" class="form-control" name="country" placeholder="Country">
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" name="login" value="Sign up">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
 
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -205,7 +258,7 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-dark" style="background-color:#000!important;">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; NextVanGogh 2018</p>
       </div>
@@ -215,6 +268,42 @@
     <!-- Bootstrap core JavaScript -->
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>
+    <script>
+        function login(){
+            $('#login-modal').modal('show');
+        }
+        function login2(){
+            $.ajax({
+                type:"GET",
+                url:'http://localhost:3000/login',
+                dataType:'json',
+                success:function(data){
+
+                },
+                error:function(jqXHR, textStatus, errorThrown) {
+                        //alert(jqXHR.status);
+                    }
+            });
+        }
+        function signup(){
+            $('#signup-modal').modal('show');
+        }
+        function signup2(){
+            $.ajax({
+                type:"GET",
+                url:'http://localhost:3000/signup',
+                dataType:'json',
+                success:function(data){
+
+                },
+                error:function(jqXHR, textStatus, errorThrown) {
+                        //alert(jqXHR.status);
+                    }
+            });
+        }
+
+
+    </script>
 
   </body>
 
