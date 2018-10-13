@@ -66,7 +66,7 @@
  		
 		<div class="list-group">
             		{% for type in types %}
-            		<a href="#" class="list-group-item">{{type[0]}}</a>
+            		<a href="{{type['Id']}}" class="list-group-item">{{type["Type"]}}</a>
 	         	{% endfor %}
 	        </div>
 
@@ -189,9 +189,9 @@
 
  		     <div class="col-lg-4 col-md-6 mb-4">
               		<div class="card h-100">
-                		<a href="#" onclick="openArt()"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
+                		<a href="#" onclick="openArt()"><img class="card-img-top" src="{{artWork['Item']}}" alt="" data-id =""+{{artWork['Description']}}></a>
                 		<div class="card-body">
-                  			<h4 class="card-title"><a href="#">{{artWork["Name"]}}</a>  </h4>
+                  			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
                                 <small style="font-style:italic;">By <a href="/artist?uname="+{{artWork['UserName']}}>{{artWork["FirstName"]}}</a></small>
                            
                   			<p class="card-text">{{artWork["Description"]}}</p>
@@ -249,7 +249,7 @@
         }
         function openArt(element){
             document.getElementById('artWorkId').src = "http://placehold.it/700x400";
-            document.getElementById('artWorkDesc').innerHTML="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!";
+            document.getElementById('artWorkDesc').innerHTML=this.getAttribute('data-id');
             $('#art-modal').modal('show');
         }
         function signup(){
