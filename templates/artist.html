@@ -40,7 +40,7 @@
               <a class="nav-link" href="#">Artists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Art Group</a>
+              <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" onclick="login()">Login</a>
@@ -138,6 +138,8 @@
           <div class="list-group">
             <p>{{ artist["bio"] }}</p>
           </div>
+          <button class="btn btn-warning" style="margin-bottom:10%;">Sponsor this artist!</button>
+          <br>
         </div>
         <!-- /.col-lg-3 -->
 
@@ -169,6 +171,9 @@
             </a>
           </div>
 
+          <div>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/CDIJg3IZShI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
           <div class="row">
 
               {% for artWork in artWorks %}
