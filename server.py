@@ -62,9 +62,9 @@ def login():
     else:
 	    return redirect("/")    
 
-@app.route("/profile", methods=['GET','POST'])
-def getProfile():
-
+@app.route("/profile/<name>")
+def getProfile(name):
+       
     con = lite.connect('db/nVanGogh.db')
     con.row_factory = lite.Row
     cur = con.cursor()
@@ -74,9 +74,9 @@ def getProfile():
     if len(a): 
 	    cur.execute("SELECT * FROM Artists Where Artists.UserName == ?", [name]) 
 	    artWorks = cur.fetchall()
-	    render_template('profile.html', artist = a, artWorks = artWorks)
+	    return render_template('profile.html', artist = a, artWorks = artWorks)
     else:
-    	return redirect("/")  
+    	    return redirect("/")  
 
     
 @app.route("/signup", methods=['POST'])
@@ -112,6 +112,7 @@ def index():
 	artWorks = cur.fetchall(); 
 	print(types)
 	return render_template('index.html', types = types, artWorks = artWorks)
+
 
 if __name__ == "__main__":
     app.run()
