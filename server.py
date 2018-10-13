@@ -117,6 +117,11 @@ def getAllArtists():
 	a = cur.fetchall()
 	return render_template('allArtists.html',allArtists=artists)
 
+@app.route("/about")
+def about():
+	return render_template('about.html')
+
+
 @app.route('/')
 @app.route('/<typ>')
 def index(typ=None):
