@@ -38,8 +38,15 @@ def redirect_url(default='index'):
 def login():
     uname = request.form['user']
     pwd = request.form['pass']
-    ###TO DO CHECK IF EXISTS IN TABLE AND RETURN USER
-    return redirect(redirect_url())
+    con = lite.connect('db/nVanGogh.db')
+    con.row_factory = lite.Row
+    cur = con.cursor()
+    cur.execute("SELECT Artists.Password FROM Artists Where Artists.UserName == ?", [uname]) 
+    user = cur.fetchall()
+    if len(user) and user[0]['Password'] == pwd:
+	    return redirect("/artist")
+    else:
+	    return redirect("/")    
 
 @app.route("/signup", methods=['POST'])
 def signup():
