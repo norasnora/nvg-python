@@ -28,10 +28,9 @@ finally:
 
 app = Flask(__name__, static_url_path='/static')
 
-def redirect_url(default='index'):
+def redirect_url():
     return request.args.get('next') or \
-           request.referrer or \
-           url_for(default)
+           request.referrer
 
 
 @app.route("/loginDemo", methods=['POST'])
@@ -47,7 +46,7 @@ def loginDemo():
     if len(user) and user[0]['Password'] == pwd:
     	session['loggedIn'] = True
     	session['level'] = user[0]['Level']
-    	return redirect(url_for('index', user=user))
+    	return redirect(redirect_url())
     else:
     	return redirect("/")   
 
@@ -67,7 +66,7 @@ def login():
 @app.route("/logout")
 def logout():
 	session.clear()
-	
+
 @app.route("/profile/<name>")
 def getProfile(name):
        

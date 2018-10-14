@@ -41,12 +41,12 @@
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
             </li>
-            <li class="nav-item">
-              {% if loggedIn %}
+            <li id="log" class="nav-item">
+              {% if session['loggedIn'] %}
               <a class="nav-link" onclick="logout()">Logout</a>
               {% else %}
               <a class="nav-link" onclick="login()">Login</a>
-              {% endif %}
+              {% endif %}   
             </li>
 <!--             <li class="nav-item">
               <a  class="nav-link" onclick="signup()">Sign up</a>
@@ -83,7 +83,7 @@
                 </button>
               </div>
                 <p style="margin-left:4%"><a href="#" onclick="signup()">Don't have an account? Sign up!</a></p>
-              <form action="{{url_for('login')}}" method="POST">
+              <form action="{{url_for('loginDemo')}}" method="POST">
                   <div class="modal-body">
                         <input type="text" class="form-control" name="user" placeholder="Username">
                         <input type="password" class="form-control" name="pass" placeholder="Password">
@@ -135,15 +135,16 @@
           <div class="row" style="margin-top:3%;">
             <h4>About us</h4>
             <p>              
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-              <br>
-              <h5>Support levels:</h5>
-              <ul>
-                <li>Big supporter</li>
-                <li>Huge supporter</li>
-                <li>Humangous supporter</li>
-              </ul>
+              The Next Van gogh is a community that supports the creation of art by letting young artists show their work.
             </p>
+              <div class="row">
+                <ul>
+                  <li>Art lover - supporter who can see artists work.</li>
+                  <li>Art angel - supporter who can see artists work, sketches, videos.</li>
+                  <li> The Godfather - supporter who can see artists work, sketches, videos, live streams and receives "backstage pass" to artists events.</li>
+                </ul>
+              </div>
+            
 
 	       </div>
           <!-- /.row -->
