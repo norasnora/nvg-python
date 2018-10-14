@@ -65,17 +65,83 @@
           <h1 class="my-4"></h1>
  		
 		<div class="list-group">
-            		{% for type in types %}
-            		<a href="{{type['Id']}}" class="list-group-item">{{type["Type"]}}</a>
+		{% if not uname %}
+            		{% for allArtist in allArtists %}
+			<a href="/allArtists/{{allArtist['UserName']}}" class="list-group-item"><img class="card-img-top" src="{{allArtist['Photo']}}" alt=""></a>
+			<a href="/artist/{{allArtist['UserName']}}" class="text-center">{{allArtist["FirstName"]}}</a>
+			         		
 	         	{% endfor %}
+		{% else %}
+			<a href="/allArtists/{{artMen[0]['UserName']}}" class="list-group-item"><img class="card-img-top" src="{{artMen[0]['Photo']}}" alt=""></a>
+			<a href="/artist/{{artMen[0]['UserName']}}" class="text-center">{{artMen[0]["FirstName"]}}</a>
+			
+              	{% endif %}   
 	        </div>
 
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
+          <h1 class="my-4"></h1>
+ 		
+<div class="card">
+  <div class="card-body">
 
-        <div class="modal" id="login-modal" tabindex="-1" role="dialog">
+<form action="payWithCard" method="POST">
+ 		<div class="form-group">
+    			<label for="amount">Artist name</label>
+			{% if uname %}
+      			<input type="text" class="form-control" name="artist" placeholder="{{uname}}">
+      			{% else %}
+      			<input type="text" class="form-control" name="artist" placeholder="Click on Artist">
+      			{% endif %}   			
+  		</div>
+
+		<div class="form-group">
+    			<label for="amount">Amount</label>
+    			<input type="decimal" class="form-control" id='amount' name="amount" placeholder="10" min=0>
+  		</div>
+		<button type="submit" class="stripe-button-el"><span style="display: block; min-height: 30px;">Pay with PayPal</span></button>
+   <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_TYooMQauvdEDq54NiTphI7jx"
+    data-amount= 1000
+    data-name="Stripe.com"
+    data-description="Example charge"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-zip-code="true">
+  </script>
+</form>
+           </div>             
+           </div>  
+		{% if artMen and artMen[0] %}
+ 		<div class="card">
+ 			<div class="card-body">
+				<h4>{{artMen[0]["FirstName"]}} {{artMen[0]["FirstName"]}}</h4>
+				<p>{{artMen[0]["Description"]}}</p>
+				<a type="submit" href="/allArtists" class="stripe-button-el"><span style="display: block; min-height: 30px;">Show all artists</span></a>
+           		</div>             
+           	</div> 
+		{% endif %} 
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container --> 
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark" style="background-color:#000!important;">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; NextVanGogh 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+<div class="modal" id="login-modal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -84,7 +150,6 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-                <p style="margin-left:4%"><a href="#" onclick="signup()">Don't have an account? Sign up!</a></p>
               <form action="{{url_for('loginDemo')}}" method="POST">
                   <div class="modal-body">
                         <input type="text" class="form-control" name="user" placeholder="Username">
@@ -117,12 +182,6 @@
                         <input type="text" class="form-control" name="address" placeholder="Address">
                         <input type="text" class="form-control" name="city" placeholder="City">
                         <input type="text" class="form-control" name="country" placeholder="Country">
-                          <div class="form-check">
-                            <input type="radio" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1" style="padding-right:5%;">Artist</label>
-                            <input type="radio" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Sponsor</label>
-                          </div>
                   </div>
                   <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" name="login" value="Sign up">
@@ -137,13 +196,13 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="artWorkName"></h5>
+                <h5 class="modal-title">Artwork Name</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
                 <div class="modal-body">
-                    <img id="artWorkId" class="card-img-top"/>
+                    <img id="artWorkId" width=400 height=300 />
                     <p id="artWorkDesc"></p>
 
                 </div>
@@ -156,71 +215,17 @@
         </div>
 
 
-          <div class="row" style="margin-top:3%;">
-
-            	{% for artWork in artWorks %}
-
- 		     <div class="col-lg-4 col-md-6 mb-4">
-              		<div class="card h-100">
-                		<a href="#" onclick="openArt('{{artWork["Item"]+ "," + artWork["Name"]+ "," + artWork["Description"]}}')"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
-                		<div class="card-body">
-                  			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
-                                <small style="font-style:italic;">By <a href="/artist/{{artWork['UserName']}}">{{artWork["FirstName"]}}</a></small>
-                           
-                  			<p class="card-text">{{artWork["Description"]}}</p>
-                		</div>
-                		<div class="card-footer">
-                            <button class="btn btn-primary" style="float:right;"><small>Buy now</small></button>
-                            <!-- <button class="btn btn-warning pull-right"><small>Add to cart</small></button> -->
-                  			<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
-                		</div>
-              		</div>
-            	</div>
-	         {% endfor %}
-
-
-
-	       </div>
-          <!-- /.row -->
-
-        </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
-      <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark" style="background-color:#000!important;">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; NextVanGogh 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
     <!-- Bootstrap core JavaScript -->
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>
     <script>
-        window.onload = function(){
-          el = document.getElementById('log')
-          if("{{session['loggedIn']}}"){
-            el.innerHTML = '<a class="nav-link" onclick="logout()">Logout</a>'
-          }
-          else{
-            el.innerHTML = '<a class="nav-link" onclick="login()">Login</a>'
-          }
-                                
-        }
         function login(){
             $('#login-modal').modal('show');
         }
         function login2(){
             $.ajax({
                 type:"GET",
-                url:'http://localhost:3000/loginDemo',
+                url:'http://localhost:3000/login',
                 dataType:'json',
                 success:function(data){
 
@@ -230,15 +235,12 @@
                     }
             });
         }
-        function openArt(elem){
-            allElems = elem.split(",")
-            document.getElementById('artWorkId').src = allElems[0];
-            document.getElementById('artWorkDesc').innerHTML= allElems[2];
-            document.getElementById('artWorkName').innerHTML = allElems[1]
+        function openArt(element){
+            document.getElementById('artWorkId').src = "http://placehold.it/700x400";
+            document.getElementById('artWorkDesc').innerHTML="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!";
             $('#art-modal').modal('show');
         }
         function signup(){
-            $('#login-modal').modal('hide');
             $('#signup-modal').modal('show');
         }
         function signup2(){
