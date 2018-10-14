@@ -43,7 +43,7 @@
             </li>
             <li id="log" class="nav-item">
               {% if session['loggedIn'] %}
-              <a class="nav-link" onclick="logout()">Logout</a>
+              <a class="nav-link" onclick="window.location.href='/logout'">Logout</a>
               {% else %}
               <a class="nav-link" onclick="login()">Login</a>
               {% endif %}   
