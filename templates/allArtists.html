@@ -65,11 +65,17 @@
           <h1 class="my-4"></h1>
  		
 		<div class="list-group">
+		{% if not uname %}
             		{% for allArtist in allArtists %}
 			<a href="/allArtists/{{allArtist['UserName']}}" class="list-group-item"><img class="card-img-top" src="{{allArtist['Photo']}}" alt=""></a>
 			<a href="/artist/{{allArtist['UserName']}}" class="text-center">{{allArtist["FirstName"]}}</a>
 			         		
 	         	{% endfor %}
+		{% else %}
+			<a href="/allArtists/{{artMen[0]['UserName']}}" class="list-group-item"><img class="card-img-top" src="{{artMen[0]['Photo']}}" alt=""></a>
+			<a href="/artist/{{artMen[0]['UserName']}}" class="text-center">{{artMen[0]["FirstName"]}}</a>
+			
+              	{% endif %}   
 	        </div>
 
         </div>
@@ -109,7 +115,15 @@
 </form>
            </div>             
            </div>  
-
+		{% if artMen and artMen[0] %}
+ 		<div class="card">
+ 			<div class="card-body">
+				<h4>{{artMen[0]["FirstName"]}} {{artMen[0]["FirstName"]}}</h4>
+				<p>{{artMen[0]["Description"]}}</p>
+				<a type="submit" href="/allArtists" class="stripe-button-el"><span style="display: block; min-height: 30px;">Show all artists</span></a>
+           		</div>             
+           	</div> 
+		{% endif %} 
         </div>
         <!-- /.col-lg-9 -->
 
