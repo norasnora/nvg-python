@@ -136,17 +136,16 @@ def index(typ=None):
 
 	
 	con = lite.connect('db/nVanGogh.db')
-   	con.row_factory = lite.Row
-      	cur = con.cursor()
-	cur.execute("SELECT * FROM ArtTypes") 
-   	types = cur.fetchall(); 
+	con.row_factory = lite.Row
+	cur = con.cursor()
+	cur.execute("SELECT * FROM ArtTypes")
+	types = cur.fetchall();
 	if typ :
 		cur.execute("Select ArtWorks.Id, Artists.UserName, Artists.FirstName, Artists.LastName, ArtWorks.Description, ArtWorks.Item, ArtWorks.Name from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id where ArtWorks.ArtTypeId == ?", typ) 
-			
 	else:
 		cur.execute("Select Artists.UserName, Artists.FirstName, Artists.LastName, ArtWorks.Description, ArtWorks.Item, ArtWorks.Name from ArtWorks INNER JOIN Artists ON ArtWorks.ArtistId == Artists.Id") 
-	artWorks = cur.fetchall(); 
-	print(types)
+		artWorks = cur.fetchall();
+		print(types)
 	return render_template('index.html', types = types, artWorks = artWorks)
 
 if __name__ == "__main__":
