@@ -13,7 +13,7 @@ try:
     
     data = cur.fetchone()
     
-    print "SQLite version: %s" % data                
+    print("SQLite version: %s" % data)                
     
 except lite.Error, e:
     
