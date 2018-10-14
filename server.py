@@ -122,7 +122,7 @@ def getAllArtists(uname=None):
 	con = lite.connect('db/nVanGogh.db')
 	con.row_factory = lite.Row
 	cur = con.cursor()
-	cur.execute("SELECT * FROM Artists")
+	cur.execute("SELECT * FROM Artists order by id")
 	artists = cur.fetchall()
 	artMen = None
     	if uname: 
