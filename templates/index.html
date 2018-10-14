@@ -75,6 +75,49 @@
 
         <div class="col-lg-9">
 
+          <div class="row" style="margin-top:3%;">
+
+            	{% for artWork in artWorks %}
+
+ 		     <div class="col-lg-4 col-md-6 mb-4">
+              		<div class="card h-100">
+                		<a href="#" onclick="openArt('{{artWork["Item"]+ "," + artWork["Name"]+ "," + artWork["Description"]}}')"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
+                		<div class="card-body">
+                  			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
+                                <small style="font-style:italic;">By <a href="/artist/{{artWork['UserName']}}">{{artWork["FirstName"]}}</a></small>
+                           
+                  			<p class="card-text">{{artWork["Description"]}}</p>
+                		</div>
+                		<div class="card-footer">
+                            <button class="btn btn-primary" style="float:right;"><small>Buy now</small></button>
+                            <!-- <button class="btn btn-warning pull-right"><small>Add to cart</small></button> -->
+                  			<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                		</div>
+              		</div>
+            	</div>
+	         {% endfor %}
+
+
+
+	       </div>
+          <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark mt-2" style="background-color:#000!important;">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; NextVanGogh 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
         <div class="modal" id="login-modal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -154,52 +197,6 @@
             </div>
           </div>
         </div>
-
-
-          <div class="row" style="margin-top:3%;">
-
-            	{% for artWork in artWorks %}
-
- 		     <div class="col-lg-4 col-md-6 mb-4">
-              		<div class="card h-100">
-                		<a href="#" onclick="openArt('{{artWork["Item"]+ "," + artWork["Name"]+ "," + artWork["Description"]}}')"><img class="card-img-top" src="{{artWork['Item']}}" alt=""></a>
-                		<div class="card-body">
-                  			<h4 class="card-title"><a  href="#">{{artWork["Name"]}}</a>  </h4>
-                                <small style="font-style:italic;">By <a href="/artist/{{artWork['UserName']}}">{{artWork["FirstName"]}}</a></small>
-                           
-                  			<p class="card-text">{{artWork["Description"]}}</p>
-                		</div>
-                		<div class="card-footer">
-                            <button class="btn btn-primary" style="float:right;"><small>Buy now</small></button>
-                            <!-- <button class="btn btn-warning pull-right"><small>Add to cart</small></button> -->
-                  			<!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
-                		</div>
-              		</div>
-            	</div>
-	         {% endfor %}
-
-
-
-	       </div>
-          <!-- /.row -->
-
-        </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
-      <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark" style="background-color:#000!important;">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; NextVanGogh 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
     <!-- Bootstrap core JavaScript -->
     <script src="../static/jquery.min.js"></script>
     <script src="../static/bootstrap.bundle.min.js"></script>

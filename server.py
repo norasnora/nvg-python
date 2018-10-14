@@ -115,6 +115,7 @@ def getArtist(name):
 	artWorks = cur.fetchall()
 	return render_template('artist.html', artist = a, artWorks = artWorks)
 
+
 @app.route("/allArtists")
 @app.route('/allArtists/<uname>')
 def getAllArtists(uname=None):
@@ -123,7 +124,12 @@ def getAllArtists(uname=None):
 	cur = con.cursor()
 	cur.execute("SELECT * FROM Artists")
 	artists = cur.fetchall()
-	return render_template('allArtists.html', allArtists=artists, uname = uname)
+	artMen = None
+    	if uname: 
+	    cur.execute("SELECT * FROM Artists where Artists.UserName == ?", [uname])
+	    artMen = cur.fetchall()
+
+	return render_template('allArtists.html', allArtists=artists, uname = uname, artMen = artMen)
 
 @app.route("/about")
 def about():

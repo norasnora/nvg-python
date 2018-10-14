@@ -146,12 +146,14 @@
           <br>
         </div>
         <!-- /.col-lg-3 -->
+        <div class="col-lg-9">
 
-        <div class="col-lg-9" style="margin-top:3%;">
+          <div class="row" style="margin-top:3%;">
               {% if session['level']==3 %}
+
                 <div class="level3">
                   <video width="320" height="240" controls autoplay>
-                    <source src="../static/IMG_2716.mp4" type="video/mp4">
+                    <source src="../static/artistvideo.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                   </video>
                 </div>
@@ -160,7 +162,6 @@
               {% endif %} 
 
           <div class="row">
-
 		{% for artWork in artWorks %}
 
  		     <div class="col-lg-4 col-md-6 mb-4">
@@ -181,7 +182,7 @@
             	</div>
 	         {% endfor %}
 
-
+         </div>
 
          </div>
         </div>
@@ -214,7 +215,7 @@
         </div>
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark" style="background-color:#000!important;">
+    <footer class="py-5 bg-dark  mt-2" style="background-color:#000!important;">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; NextVanGogh 2018</p>
       </div>
