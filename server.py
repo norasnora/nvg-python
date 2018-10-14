@@ -15,9 +15,9 @@ try:
     
     print("SQLite version: %s" % data)                
     
-except lite.Error, e:
+except lite.Error as e:
     
-    print "Error %s:" % e.args[0]
+    print("Error %s:" % e.args[0])
     sys.exit(1)
     
 finally:
